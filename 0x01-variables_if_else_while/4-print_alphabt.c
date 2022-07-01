@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	int ch;
+	char ch;
 	
 	ch = 'a';
 	
@@ -16,7 +16,7 @@ int main(void)
 	{
 		if(ch != 'e' && ch != 'q'){
 			putchar(ch);
-			ch += 1;
+			ch++;
 		}
 	}
 	putchar('\n');
