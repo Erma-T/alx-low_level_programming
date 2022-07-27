@@ -1,1 +1,1 @@
-task for static library proj
+C - Static libraries
