@@ -1,18 +1,27 @@
 #include <stdlib.h>
 
 /**
- * malloc_checked - malloc memory and exit 98 on failure
+ * create_array - creates an array of size size
  *
- * @b: size to allocate
+ * @size: size of array
+ * @c: char to fill array with
  *
- * Return: pointer to allocated data
+ * Return: pointer to first element
  */
-void *malloc_checked(unsigned int b)
+char *create_array(unsigned int size, char c)
 {
-	void *a;
+	char *first;
+	unsigned int i;
 
-	a = malloc(b);
-	if (!a)
-		exit(98);
-	return (a);
+	if (size <= 0)
+		return (NULL);
+
+	first = malloc(size);
+	if (first == NULL)
+		return (NULL);
+
+	for (i = 0; i < size; i++)
+		first[i] = c;
+
+	return (first);
 }
