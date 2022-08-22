@@ -1,38 +1,38 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include "main.h"
+
 /**
- * create_file - creates a file and puts text in it
- * with 600 perms (do not change if it exists)
+ * create_file - creates a file
+ * @filename: filename.
+ * @text_content: content writed in the file.
  *
- * @filename: name for file
- * @text_content: text to put into file
- *
- * Return: 1 on success, -1 on failure
+ * Return: 1 if it success. -1 if it fails.
  */
 int create_file(const char *filename, char *text_content)
 {
-	int file;
-	int length = 0, inlen = 0;
-	char *ptr;
+	int fd;
+	int nletters;
+	int rwr;
 
-	if (filename == NULL)
+	if (!filename)
 		return (-1);
 
-	file = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-	if (file == -1)
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+
+	if (fd == -1)
 		return (-1);
 
-	if (text_content != NULL)
-	{
-		for (inlen = 0, ptr = text_content; *ptr; ptr++)
-			inlen++;
-		length = write(file, text_content, inlen);
-	}
+	if (!text_content)
+		text_content = "";
 
-	if (close(file) == -1 || inlen != length)
+	for (nletters = 0; text_content[nletters]; nletters++)
+		;
+
+	rwr = write(fd, text_content, nletters);
+
+	if (rwr == -1)
 		return (-1);
+
+	close(fd);
+
 	return (1);
 }
